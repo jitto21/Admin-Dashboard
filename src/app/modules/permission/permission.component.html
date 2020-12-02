@@ -1,0 +1,68 @@
+<form [formGroup]="permissionsForm" (ngSubmit) = "onSubmit()">
+
+  <table style="width: 100%;" mat-table [dataSource]="dataSource" class="mat-elevation-z8" formArrayName="usersArray">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element; let i=index;"> {{i+1}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fname}} {{ element.lname }} </td>
+    </ng-container>
+
+    <!-- Location Column -->
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef> Location </th>
+      <td mat-cell *matCellDef="let element;let i=index;" [formGroupName]="i"> <input type="checkbox" name="" id="" formControlName="location"> </td>
+    </ng-container>
+
+    <!-- Survey Column -->
+    <ng-container matColumnDef="survey">
+      <th mat-header-cell *matHeaderCellDef> Survey </th>
+      <td mat-cell *matCellDef="let element;let i=index;" [formGroupName]="i"> <input type="checkbox" name="" id="" formControlName="survey"> </td>
+    </ng-container>
+
+    <!-- Screen 1 Column -->
+    <ng-container matColumnDef="screen1">
+      <th mat-header-cell *matHeaderCellDef> Screen 1 </th>
+      <td mat-cell *matCellDef="let element;let i=index;" [formGroupName]="i"> <input type="checkbox" name="" id="" formControlName="screen1"> </td>
+    </ng-container>
+
+    <!-- Screen 2 Column -->
+    <ng-container matColumnDef="screen2">
+      <th mat-header-cell *matHeaderCellDef> Screen 2 </th>
+      <td mat-cell *matCellDef="let element;let i=index;" [formGroupName]="i"> <input type="checkbox" name="" id="" formControlName="screen2"> </td>
+    </ng-container>
+
+    <!-- Screen 3 Column -->
+    <ng-container matColumnDef="screen3">
+      <th mat-header-cell *matHeaderCellDef> Screen 3 </th>
+      <td mat-cell *matCellDef="let element;let i=index;" [formGroupName]="i"> <input type="checkbox" name="" id="" formControlName="screen3"> </td>
+    </ng-container>
+
+    <!-- Screen 4 Column -->
+    <ng-container matColumnDef="screen4">
+      <th mat-header-cell *matHeaderCellDef> Screen 4 </th>
+      <td mat-cell *matCellDef="let element;let i=index;" [formGroupName]="i"> <input type="checkbox" name="" id="" formControlName="screen4"> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <br>
+  <div class="button">
+    <button color="primary" mat-raised-button>Submit</button>
+  </div>
+</form>
+
+<br>
+
+<mat-divider></mat-divider>
+<br><br>

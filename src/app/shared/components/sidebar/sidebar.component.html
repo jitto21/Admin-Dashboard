@@ -1,0 +1,65 @@
+<div class="logged-in" *ngIf="user!=null || user!=undefined; else notLoggedin">
+  <mat-nav-list>
+    <div class="profile-card">
+      <div class="header">
+        <h2>{{user.name}}</h2>
+        <h4>{{ user.email }}</h4>
+      </div>
+      <img src="https://cdn4.iconfinder.com/data/icons/evil-icons-user-interface/64/avatar-256.png" alt="profile.png">
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Pages</h2>
+    <div class="nav-items">
+      <a *ngIf="user.access.users" mat-list-item routerLinkActive=".list-item-active" routerLink="/">
+        <mat-icon>dashboard</mat-icon> Dashboard
+      </a>
+      <a *ngIf="user.access.log" mat-list-item routerLinkActive=".list-item-active" routerLink="/permission">
+        <mat-icon>verified_user</mat-icon> Assign Permissions
+      </a>
+      <a *ngIf="user.access.location" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">
+        <mat-icon>my_location</mat-icon> Location
+      </a>
+      <a *ngIf="user.access.survey" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">
+        <mat-icon>pie_chart</mat-icon> Survey
+      </a>
+      <a *ngIf="user.access.screen1" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">
+        <mat-icon>place</mat-icon> Maps
+      </a>
+      <a *ngIf="user.access.screen2" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">
+        <mat-icon>account_circle</mat-icon> User Profile
+      </a>
+      <a *ngIf="user.access.screen3" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">
+        <mat-icon>commute</mat-icon> Travel
+      </a>
+      <a *ngIf="user.access.screen4" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">Screen 4</a>
+      <a *ngIf="user.access.screen5" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">Screen 5</a>
+      <a *ngIf="user.access.screen6" mat-list-item routerLinkActive=".list-item-active" routerLink="/location">Screen 6</a>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Tools</h2>
+
+    <a mat-list-item routerLinkActive=".list-item-active" routerLink="/contacts">
+      <mat-icon>import_contacts</mat-icon> Contacts
+    </a>
+    <a mat-list-item routerLinkActive=".list-item-active" routerLink="/phone">
+      <mat-icon>contact_phone</mat-icon> Call
+    </a>
+
+    <mat-divider></mat-divider>
+
+    another menu
+  </mat-nav-list>
+
+</div>
+
+<ng-template #notLoggedin>
+  <div class="login-btn">
+    <button mat-button routerLink="/auth">
+      <mat-icon>login</mat-icon>Login
+    </button>
+  </div>
+</ng-template>

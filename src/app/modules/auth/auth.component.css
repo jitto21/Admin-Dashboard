@@ -1,0 +1,15 @@
+.labels {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.signup-close-btn {
+    border-radius: 15px;
+    box-shadow: black;
+    width: 35px;
+    font-weight: bolder;
+}
+
+a {
+    cursor: pointer;
+}

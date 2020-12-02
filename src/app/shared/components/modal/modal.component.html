@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Alert!</h1>
+<div mat-dialog-content>
+  <p *ngIf="data.maxTimeout !== 0">Press CANCEL to continue using the website or you will be logged out in {{sec}} seconds</p>
+  <p *ngIf="data.maxTimeout === 0">Maximum No:of Timeouts Reached. Logging You Out.</p>
+  <!-- <button mat-button (click)="dialogRef.close('CLOSE')"><span>&times;</span></button> -->
+</div>
+<div mat-dialog-actions>
+  <button *ngIf="data.maxTimeout !== 0" mat-button cdkFocusInitial (click)="dialogRef.close('CANCEL')">Cancel</button>
+  <button mat-button (click)="dialogRef.close('LOGGEDOUT')">Ok</button>
+</div>
