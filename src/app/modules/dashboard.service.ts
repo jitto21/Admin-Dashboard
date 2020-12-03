@@ -9,7 +9,11 @@ export class DashboardService {
 
   private loginLogs: any;
   private logArray: any[] = [];
-  private pieSubject = new Subject<any>();
+  private officeArr: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  private clientArr: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  private homeArr: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  private pieSubject = new Subject<{name: string, y: number}[]>();
+  private bigSubject = new Subject<{name: string, data: number[]}[]>();
   private logSubject = new Subject<any>();
 
   constructor(private authService: AuthService) { }
@@ -17,13 +21,13 @@ export class DashboardService {
   bigChart() {
     return [{
         name: 'Client',
-        data: [502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402, 3634]
+        data: [502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402]
       }, {
         name: 'Home',
-        data: [106, 107, 111, 133, 221, 767, 1766, 502, 635, 809, 947, 1402, 3634]
+        data: [106, 107, 111, 133, 221, 767, 1766, 502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402]
       }, {
         name: 'Office',
-        data: [163, 203, 276, 408, 547, 729, 628, 502, 635, 809, 947, 1402, 3634]
+        data: [163, 203, 276, 408, 547, 729, 628, 502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402, 3634, 502, 635, 809, 947, 1402]
       }]
   }
 
@@ -65,10 +69,39 @@ export class DashboardService {
           });
         });
         console.log(this.logArray);
+        this.calcBigData();
         this.calcPieData();
         this.logSubject.next(this.logArray);
       });
 
+  }
+
+  calcBigData() {
+    this.logArray.forEach(log => {
+      const time = +log.time.substr(0,2);
+      if(log.from === 'Home')
+        this.homeArr[time] = ++this.homeArr[time];
+      else if(log.from === 'Office')
+        this.officeArr[time] = ++this.officeArr[time];
+      else
+        this.clientArr[time] = ++this.clientArr[time]
+    })
+    console.log(this.officeArr);
+    console.log(this.clientArr);
+    console.log(this.homeArr);
+
+    this.bigSubject.next(
+      [{
+        name: 'Client',
+        data: this.clientArr
+      }, {
+        name: 'Home',
+        data: this.homeArr
+      }, {
+        name: 'Office',
+        data: this.officeArr
+      }]
+    )
   }
 
   calcPieData() {
@@ -82,7 +115,16 @@ export class DashboardService {
         client++;
     })
     console.log(office,client,home);
-    this.pieSubject.next([{name: 'Office', y: office}, {name: 'Client' ,y: client}, {name: 'Home', y: home}])
+
+    this.pieSubject.next(
+      [{name: 'Office', y: office},
+      {name: 'Client' ,y: client},
+      {name: 'Home', y: home}
+    ])
+  }
+
+  getBigSubjectasObs() {
+    return this.bigSubject.asObservable();
   }
 
   getPieSubjectasObs() {
