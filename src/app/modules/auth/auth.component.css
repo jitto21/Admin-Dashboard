@@ -13,3 +13,20 @@
 a {
     cursor: pointer;
 }
+
+mat-radio-group :nth-child(-n+2), mat-form-field {
+  margin-right: 7px;
+}
+
+mat-icon {
+  position: relative;
+  top: -7px;
+}
+
+mat-icon#signup-close {
+  color: #ab003c;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

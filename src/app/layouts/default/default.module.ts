@@ -15,6 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthComponent } from 'src/app/modules/auth/auth.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from 'src/app/modules/auth/auth.interceptor';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -33,9 +37,13 @@ import { AuthInterceptor } from 'src/app/modules/auth/auth.interceptor';
     MatCardModule,
     MatButtonModule,
     MatTableModule,
+    MatIconModule,
+    MatInputModule,
     ReactiveFormsModule,
     FormsModule,
+    MatFormFieldModule,
     FlexLayoutModule,
+    MatRadioModule,
     HttpClientModule
   ],
   providers: [HttpClientModule,

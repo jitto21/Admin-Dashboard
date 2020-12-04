@@ -1,139 +1,127 @@
-<div class="row">
-    <!--LOGIN-->
-    <div class="col-sm-6">
-        <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
-            <div class="form-group col-sm-5">
-                <label class="m-0 labels" for="username">Username</label>
-                <input ngModel name="username" #username="ngModel" type="text" class="form-control form-control-sm" id="username" required>
-            </div>
-            <div class="form-group col-sm-5">
-                <label class="m-0 labels" for="password">Password</label>
-                <input ngModel name="password" #password="ngModel" type="password" class="form-control form-control-sm" id="password" required>
-            </div>
-            <div class="col-auto">
-                <div class="row">
-                    <div class="col-sm-7">
-                        <label class="mb-0 labels">Signing In From:</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <div class="form-check form-check-inline">
-                            <label for="home">
-                                <input ngModel #signinFrom="ngModel" name="signinFrom" type="radio" id="home" class="form-check-input m-0" value="Home" required>
-                                Home
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label for="office">
-                                <input ngModel #signinFrom="ngModel" name="signinFrom" type="radio" id="office" class="form-check-input m-0" value="Office" required>
-                                Office
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label for="client">
-                                <input ngModel #signinFrom="ngModel" name="signinFrom" type="radio" id="client" class="form-check-input m-0" value="Client" required>
-                                Client
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row m-0">
-                <div class="col-sm-2">
-                    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary btn-sm mr-1">Login</button>
-                </div>
-                <div class="col-sm-9">
-                    <small class="form-text">
-                        <a class="text-right" href="#">Forgot password ?</a>
-                    </small>
-                </div>
-            </div>
-            <div class="ml-3">
-                <small class="form-text">
-                    <a href="javascript:void(0)" (click)="onSignupLink()">New User? Sign Up</a>
-                </small>
-            </div>
-        </form>
-    </div>
-    <!--SIGNUP-->
-    <div class="col-sm-6" *ngIf="signupMode">
-        <div class="row">
-            <div class="col-sm-9">
-                <h3 style="text-decoration: underline;" class="text-center">Create Account</h3>
-            </div>
-            <div class="col-sm-2">
-                <button data-toggle="tooltip" data-placement="top" title="Close Signup Window" 
-                (click)="onCloseSignup()" class="signup-close-btn btn btn-sm btn-danger">X</button>
-            </div>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="auth-container">
+  <!--LOGIN-->
+  <mat-card fxFlex="40">
+    <form (ngSubmit)="onLogin(loginForm)" #loginForm="ngForm">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput ngModel name="username" #username="ngModel" type="text" id="username" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput ngModel name="password" #password="ngModel" type="password" id="password" required>
+      </mat-form-field>
+
+      <div class="signin-from-mat-label">
+        <label>Signing in From: </label>
+      </div>
+
+      <br>
+
+      <div>
+        <mat-radio-group ngModel name="from" #from="ngModel" color="primary">
+          <mat-radio-button type="radio" id="home" value="Home" required>Home</mat-radio-button>
+          <mat-radio-button type="radio" id="office" value="Office" required>Office</mat-radio-button>
+          <mat-radio-button type="radio" id="client" value="Client" required>Client</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <br>
+
+      <div>
+        <button mat-raised-button [disabled]="!loginForm.valid" type="submit">Login</button>
+        <div class="col-sm-9">
+          <small class="form-text">
+            <a class="text-right" href="#">Forgot password ?</a>
+          </small>
         </div>
-        <form (ngSubmit)="onSignup(signupForm)" #signupForm="ngForm">
-            <div class="form-group">
-                <label class="m-0 labels" for="fname">First Name</label>
-                <input ngModel name="fname" #fname="ngModel" type="text" class="form-control form-control-sm" id="fname" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="mname">Middle Name</label>
-                <input ngModel name="mname" #mname="ngModel" type="text" class="form-control form-control-sm" id="mname">
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="lname">Last Name</label>
-                <input ngModel name="lname" #lname="ngModel" type="text" class="form-control form-control-sm" id="lname" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="empid">Employee Id</label>
-                <input ngModel name="empid" #password="ngModel" type="text" class="form-control form-control-sm" id="empid" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="email">Company Email</label>
-                <input ngModel name="email" #email="ngModel" type="text" class="form-control form-control-sm" id="email" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="uname">Username</label>
-                <input ngModel name="uname" #uname="ngModel" type="text" class="form-control form-control-sm" id="uname" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="pass">Password</label>
-                <input ngModel name="pass" #pass="ngModel" type="password" class="form-control form-control-sm" id="pass" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="phone">Phone Number</label>
-                <input ngModel name="phone" #phone="ngModel" type="text" class="form-control form-control-sm" id="phone" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="altphone">Alternate Number</label>
-                <input ngModel name="altphone" #altphone="ngModel" type="text" class="form-control form-control-sm" id="altphone">
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="designation">Designation</label>
-                <input ngModel name="designation" #designation="ngModel" type="text" class="form-control form-control-sm" id="designation" required>
-            </div>
-            <div class="form-group">
-                <label class="m-0 labels" for="doj">D.O.J</label>
-                <input ngModel name="doj" #doj="ngModel" type="date" class="form-control form-control-sm" id="doj" required>
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <label class="m-0 labels">Gender</label>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="form-check form-check-inline">
-                            <label for="male">
-                                <input ngModel name="gender" #gender="ngModel" type="radio" class="form-check-input m-0" id="male" value="Male" required>
-                                Male
-                            </label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <label for="female">
-                                <input ngModel name="gender" #gender="ngModel" type="radio" class="form-check-input m-0" id="female" value="Female" required>
-                                Female
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button [disabled]="signupForm.invalid" class="btn btn-sm btn-primary" type="submit">Signup</button>
-        </form>
+      </div>
+      <div class="ml-3">
+        <small class="form-text">
+          <a href="javascript:void(0)" (click)="onSignupLink()">New User? Sign Up</a>
+        </small>
+      </div>
+    </form>
+  </mat-card>
+  <!--SIGNUP-->
+  <mat-card fxFlex="60" *ngIf="signupMode">
+    <div fxLayout="row" fxLayoutAlign="center">
+      <span class="spacer"></span>
+      <h3>Create Account</h3>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="onCloseSignup()"><mat-icon id="signup-close">cancel</mat-icon> </button>
     </div>
+    <form (ngSubmit)="onSignup(signupForm)" #signupForm="ngForm">
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="fname">First Name</mat-label>
+        <input matInput ngModel name="fname" #fname="ngModel" type="text" class="form-control form-control-sm"
+          id="fname" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="mname">Middle Name</mat-label>
+        <input matInput ngModel name="mname" #mname="ngModel" type="text" class="form-control form-control-sm"
+          id="mname">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="lname">Last Name</mat-label>
+        <input matInput ngModel name="lname" #lname="ngModel" type="text" class="form-control form-control-sm"
+          id="lname" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="empid">Employee Id</mat-label>
+        <input matInput ngModel name="empid" #password="ngModel" type="text" class="form-control form-control-sm"
+          id="empid" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="email">Company Email</mat-label>
+        <input matInput ngModel name="email" #email="ngModel" type="text" class="form-control form-control-sm"
+          id="email" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="uname">Username</mat-label>
+        <input matInput ngModel name="uname" #uname="ngModel" type="text" class="form-control form-control-sm"
+          id="uname" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="pass">Password</mat-label>
+        <input matInput ngModel name="pass" #pass="ngModel" type="password" class="form-control form-control-sm"
+          id="pass" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="phone">Phone Number</mat-label>
+        <input matInput ngModel name="phone" #phone="ngModel" type="text" class="form-control form-control-sm"
+          id="phone" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="altphone">Alternate Number</mat-label>
+        <input matInput ngModel name="altphone" #altphone="ngModel" type="text" class="form-control form-control-sm"
+          id="altphone">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label class="m-0 mat-labels" for="designation">Designation</mat-label>
+        <input matInput ngModel name="designation" #designation="ngModel" type="text"
+          class="form-control form-control-sm" id="designation" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>D.O.J</mat-label>
+        <input matInput ngModel name="doj" #doj="ngModel" type="date" class="form-control form-control-sm" id="doj"
+          required>
+      </mat-form-field>
+
+      <div>
+        <label>Gender: </label>
+        <mat-radio-group ngModel name="gender" #gender="ngModel" color="primary">
+          <mat-radio-button type="radio" id="male" value="Home" required>Male</mat-radio-button>
+          <mat-radio-button type="radio" id="female" value="Office" required>Female</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <br>
+
+      <button mat-raised-button [disabled]="signupForm.invalid" type="submit" color="primary">Signup</button>
+
+    </form>
+  </mat-card>
 </div>

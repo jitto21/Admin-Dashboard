@@ -23,8 +23,8 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   constructor(private dashService: DashboardService, private authService: AuthService) { }
@@ -36,7 +36,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
       console.log("logsArry ",this.logArray);
       this.dataSource = new MatTableDataSource<any>(this.logArray);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      // this.dataSource.sort = this.sort;
     })
   }
 
