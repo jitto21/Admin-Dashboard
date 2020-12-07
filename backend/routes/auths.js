@@ -29,7 +29,8 @@ router.post('/signup', (req, res, next) => {
             });
             user.save()
                 .then(result => {
-                    console.log(result)
+                    console.log(result);
+                    winston.signuplogger.info(`CREATED-${new Date().toLocaleDateString()}-${new Date().toTimeString()}-${req.body.designation}-${user.empid}-${user.uname}-${req.body.doj}-${user.fname + ' ' + user.lname}`)
                     res.status(201).json({
                         message: 'User Created',
                     })

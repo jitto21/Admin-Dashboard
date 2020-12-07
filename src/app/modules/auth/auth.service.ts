@@ -252,7 +252,10 @@ export class AuthService {
   }
 
   getLoginLogs() {
-    var logArray: any[] = [];
-    return this.http.get<{ message: string, result: any }>('http://localhost:3000/log/fetch');
+    return this.http.get<{ message: string, result: any }>('http://localhost:3000/log/fetch/login');
+  }
+
+  getSignupLogs() {
+    return this.http.get<{ message: string, result: any }>('http://localhost:3000/log/fetch/signup');
   }
 }

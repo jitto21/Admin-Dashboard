@@ -44,6 +44,24 @@ var optionsLogin = {
     },
 };
 
+var optionsSignup = {
+  file: {
+      level: 'info',
+      filename: `${appRoot}/backend/logs/signup.log`,
+      handleExceptions: true,
+      json: true,
+      maxsize: 5242880, // 5MB
+      maxFiles: 5,
+      colorize: false,
+  },
+  console: {
+      level: 'info',
+      handleExceptions: true,
+      json: false,
+      colorize: true,
+  },
+};
+
 // instantiate a new Winston Logger with the settings defined above
 var applogger = winston.createLogger({
     transports: [
@@ -62,6 +80,15 @@ var loginlogger = winston.createLogger({
     exitOnError: false, // do not exit on handled exceptions
 });
 
+var signuplogger = winston.createLogger({
+  transports: [
+      new winston.transports.File(optionsSignup.file),
+      new winston.transports.Console(optionsSignup.console)
+
+  ],
+  exitOnError: false, // do not exit on handled exceptions
+});
+
 // create a stream object with a 'write' function that will be used by `morgan`
 applogger.stream = {
     write: function (message, encoding) {
@@ -77,7 +104,15 @@ loginlogger.stream = {
     }
 };
 
+signuplogger.stream = {
+  write: function (message, encoding) {
+      // use the 'info' log level so the output will be picked up by both transports (file and console)
+      signuplogger.info(message);
+  }
+};
+
 module.exports = {
     applogger: applogger,
-    loginlogger: loginlogger
+    loginlogger: loginlogger,
+    signuplogger: signuplogger
 };

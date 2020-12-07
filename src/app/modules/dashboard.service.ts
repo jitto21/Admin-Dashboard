@@ -15,6 +15,9 @@ export class DashboardService {
   private pieSubject = new Subject<{name: string, y: number}[]>();
   private bigSubject = new Subject<{name: string, data: number[]}[]>();
   private logSubject = new Subject<any>();
+  signupArray: any[] = [];
+  signLogs: any;
+  private cardSubject = new Subject<{monthArr:number[], userDiff: number, users: number}>();
 
   constructor(private authService: AuthService) { }
 
@@ -32,7 +35,7 @@ export class DashboardService {
   }
 
   cards() {
-    return [72,54,32,60,10];
+    return [72, 54, 32, 60, 10, 5, 3, 1, 12, 34, 99, 22];
   }
 
   piecharts() {
@@ -48,6 +51,30 @@ export class DashboardService {
       name: 'Office',
       y: 28
     }]
+  }
+
+  signupLogs() {
+    this.authService.getSignupLogs()
+      .subscribe((resData: any) => {
+        console.log("Signup Array in Logs Comp ", resData);
+        resData.result.map(log => {
+          console.log('hi');
+          this.signLogs = JSON.parse(log).message
+          const logObj: string[] = JSON.parse(log).message.split('-');
+          this.signupArray.push({
+            action: logObj[0],
+            date: logObj[1],
+            time: logObj[2],
+            role: logObj[3],
+            empid: logObj[4],
+            uname: logObj[5],
+            doj: logObj[6],
+            name: logObj[7]
+          });
+        });
+        console.log(this.signupArray);
+        this.calcCardDataforMonth();
+      });
   }
 
 
@@ -86,9 +113,9 @@ export class DashboardService {
       else
         this.clientArr[time] = ++this.clientArr[time]
     })
-    console.log(this.officeArr);
-    console.log(this.clientArr);
-    console.log(this.homeArr);
+    // console.log(this.officeArr);
+    // console.log(this.clientArr);
+    // console.log(this.homeArr);
 
     this.bigSubject.next(
       [{
@@ -114,13 +141,34 @@ export class DashboardService {
       else
         client++;
     })
-    console.log(office,client,home);
+    // console.log(office,client,home);
 
     this.pieSubject.next(
       [{name: 'Office', y: office},
       {name: 'Client' ,y: client},
       {name: 'Home', y: home}
     ])
+  }
+
+  calcCardDataforWeek() {
+  }
+
+  calcCardDataforMonth() {
+    const monthArr =  new Array(12).fill(0);
+    const thisMonth = new Date().getMonth();
+    console.log(monthArr);
+    this.signupArray.forEach(log => {
+      console.log(+log.date.substr(0,2));
+      monthArr[(+log.date.substr(0,2))-1] = ++monthArr[(+log.date.substr(0,2))-1];
+    })
+    console.log(monthArr);
+    const userDiff = (monthArr[thisMonth]) - (monthArr[thisMonth-1]);
+    console.log("userDiff ",userDiff)
+    this.cardSubject.next({monthArr, userDiff, users: monthArr[thisMonth]});
+  }
+
+  getCardSubjectasObs() {
+    return this.cardSubject.asObservable();
   }
 
   getBigSubjectasObs() {

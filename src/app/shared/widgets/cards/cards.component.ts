@@ -1,78 +1,79 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
+import { Subscription } from 'rxjs';
+import { DashboardService } from 'src/app/modules/dashboard.service';
 
 @Component({
   selector: 'app-widget-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit, OnDestroy {
 
   @Input() label: string;
-  @Input() total: string;
-  @Input() percentage: string;
-  @Input() data: [] = [];
+  users: number;
+  userDiff: number;
 
+  cardSubscription: Subscription;
   chartOptions;
   Highcharts = Highcharts;
 
-  constructor() { }
+  constructor(private dashService: DashboardService) { }
 
   ngOnInit(): void {
-    this.chartOptions = {
-      chart: {
-        type: 'area',
-        background: null,
-        borderWidth: 0,
-        margin: [2, 2, 2, 2],
-        height: 100
-      },
-      title: {
-        text: null
-      },
-      subtitle: {
-        text: null
-      },
-      xAxis: {
-        labels: {
-          enabled: false,
+    this.dashService.signupLogs();
+    this.cardSubscription =  this.dashService.getCardSubjectasObs().subscribe(data => {
+      this.users = data.users;
+      this.userDiff = data.userDiff;
+      console.log("card data in comp ",data);
+      this.chartOptions = {
+        chart: {
+          zoomType: 'xy'
         },
         title: {
           text: null
         },
-        startOnTick: false,
-        endOnTick: false,
-        tickOptions: []
-      },
-      yAxis: {
-        labels: {
-          enabled: false,
-        },
-        title: {
+        subtitle: {
           text: null
         },
-        startOnTick: false,
-        endOnTick: false,
-        tickOptions: []
-      },
-      tooltip: {
-        split: true,
-        outside: true
-      },
-      credits: {
-        enabled: false
-      },
-      legends: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      series: [{
-        data: this.data
-      }]
-    };
+        xAxis: [{
+          categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          crosshair: true
+        }],
+        yAxis: [{ // Primary yAxis
+          title: {
+            text: 'Users',
+            style: {
+              color: Highcharts.getOptions().colors[1]
+            }
+          }
+        }],
+        tooltip: {
+          shared: true
+        },
+        legend: {
+          layout: 'vertical',
+          align: 'left',
+          x: 120,
+          verticalAlign: 'top',
+          y: 100,
+          floating: true,
+          backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
+        },
+        exporting: {
+          enabled: true
+        },
+        series: [{
+          name: 'Users',
+          type: 'spline',
+          data: data.monthArr
+        }]
+      };
+    })
     HC_exporting(Highcharts);
 
     setTimeout(() => {
@@ -82,5 +83,8 @@ export class CardsComponent implements OnInit {
     }, 300);
   }
 
+  ngOnDestroy() {
+    this.cardSubscription.unsubscribe();
+  }
 
 }

@@ -1,17 +1,18 @@
 <div class="text">
-  <h4>{{label}}</h4>
-
-  <span class="total">{{ total }}</span>
+  <h4>
+    <span class="total">{{ users }}</span>
+    {{label}}
+  </h4>
 
   <span>
     <mat-icon>trending_up</mat-icon>
   </span>
 
   <span class="description">
-    {{ percentage }}%
+    {{ userDiff }} users
   </span>
 
-  <span>of target</span>
+  <span>from last month</span>
 </div>
 
 <div class="widget">
@@ -20,7 +21,7 @@
 
   [options]="chartOptions"
 
-  style="width: 100%; height: 100px; display: block;"
+  style="width: 100%; display: block;"
 ></highcharts-chart>
 </div>
 

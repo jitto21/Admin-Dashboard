@@ -5,15 +5,15 @@
 <br>
 
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="stats-cards">
-  <mat-card fxFlex="24">
-    <app-widget-cards label="New Users" total="10k" percentage="20" [data]="cards"></app-widget-cards>
+  <mat-card fxFlex="58">
+    <app-widget-cards label="New Users this month"></app-widget-cards>
   </mat-card>
-  <mat-card fxFlex="24">
-    <app-widget-cards label="Users" total="18k" percentage="50" [data]="cards"></app-widget-cards>  </mat-card>
-  <mat-card fxFlex="24">
-    <app-widget-cards label="Users" total="18k" percentage="50" [data]="cards"></app-widget-cards>  </mat-card>
-  <mat-card fxFlex="24">
-    <app-widget-cards label="Users" total="18k" percentage="50" [data]="cards"></app-widget-cards>  </mat-card>
+  <!-- <mat-card fxFlex="28">
+    <app-widget-cards label="Users" total="18k" percentage="50" [data]="cards"></app-widget-cards>
+  </mat-card> -->
+  <mat-card fxFlex="40">
+    <app-widgets-pie></app-widgets-pie>
+  </mat-card>
 </div>
 
 <br>
@@ -23,10 +23,11 @@
 <br>
 
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
-  <div fxFlex="60">
+
+  <div fxFlex="100">
     <app-widget-table></app-widget-table>
   </div>
-  <div fxFlex="40"><app-widgets-pie></app-widgets-pie></div>
+
 </div>
 <br>
 
